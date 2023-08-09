@@ -11,10 +11,10 @@ import { calcMinMaxPrice } from '../../hooks/calcMinMaxPrice'
 const Laptops = ({ state, setCurrentState, originalState, setBackupProducts, setBuyedProducts }) => {
     const [products, setProducts] = useState(state);
     const [interval, setInterval] = useState(4);
-    // Filtering
+    // Filtering... will try to work with 1 state!
     const [selected, setSelected] = useState([]);
     const [filteredPrice, setFilteredPrice] = useState({
-        price: minMaxPrice.min
+        price: calcMinMaxPrice(originalState).min
     });
 
     useEffect(() => {
@@ -23,14 +23,20 @@ const Laptops = ({ state, setCurrentState, originalState, setBackupProducts, set
 
     useEffect(() => {
         // filter products 'state'!!!
-        setProducts(state);
-        setInterval(4);
+        // setProducts(state.filter((x) => selected.includes(x.color)));
+        // setProducts((state) => state.filter((x) => x.price >= filteredPrice.price));
+
+        // setProducts(state);
+        // setInterval(4);
     }, [state]);
 
     useEffect(() => {
         // filter products 'state'!!!
-        setProducts((curr) => [...curr, ...state.slice(curr.length, curr.length + interval)]);
-    }, [interval, selected, state]);
+        console.log(filteredPrice, selected, products);
+        // setProducts(state => state.filter((x) => selected.includes(x.color)));
+        // setProducts(state => state.filter((x) => x.price >= filteredPrice.price));
+        // setProducts((curr) => [...curr, ...state.slice(curr.length, curr.length + interval)]);
+    }, [interval, selected, filteredPrice]);
 
     const loadMoreHandler = () => {
         setInterval(state => state + 4);
@@ -40,9 +46,10 @@ const Laptops = ({ state, setCurrentState, originalState, setBackupProducts, set
     return (
         <div className='wrapper'>
             <Filter
-                minMaxPrice={calcMinMaxPrice(originalState)}
+                minMaxPrice={calcMinMaxPrice(state)}
                 setSelected={setSelected}
                 setFilteredPrice={setFilteredPrice}
+                filteredPrice={filteredPrice}
             />
 
             <div className='app__container'>
