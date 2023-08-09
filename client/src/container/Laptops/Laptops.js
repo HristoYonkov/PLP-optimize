@@ -11,7 +11,11 @@ import { calcMinMaxPrice } from '../../hooks/calcMinMaxPrice'
 const Laptops = ({ state, setCurrentState, originalState, setBackupProducts, setBuyedProducts }) => {
     const [products, setProducts] = useState(state);
     const [interval, setInterval] = useState(4);
+    // Filtering
     const [selected, setSelected] = useState([]);
+    const [filteredPrice, setFilteredPrice] = useState({
+        price: minMaxPrice.min
+    });
 
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -35,7 +39,11 @@ const Laptops = ({ state, setCurrentState, originalState, setBackupProducts, set
 
     return (
         <div className='wrapper'>
-            <Filter minMaxPrice={calcMinMaxPrice(originalState)} setSelected={setSelected} />
+            <Filter
+                minMaxPrice={calcMinMaxPrice(originalState)}
+                setSelected={setSelected}
+                setFilteredPrice={setFilteredPrice}
+            />
 
             <div className='app__container'>
                 <section className='app__container-top'>
