@@ -11,19 +11,22 @@ import { calcMinMaxPrice } from '../../hooks/calcMinMaxPrice'
 const Laptops = ({ state, setCurrentState, originalState, setBackupProducts, setBuyedProducts }) => {
     const [products, setProducts] = useState(state);
     const [interval, setInterval] = useState(4);
+    const [selected, setSelected] = useState([]);
 
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }, []);
 
     useEffect(() => {
+        // filter products!!!
         setProducts(state);
         setInterval(4);
     }, [state]);
 
     useEffect(() => {
+        // filter products!!!
         setProducts((curr) => [...curr, ...state.slice(curr.length, curr.length + interval)]);
-    }, [interval, state]);
+    }, [interval, selected, state]);
 
     const loadMoreHandler = () => {
         setInterval(state => state + 4);
@@ -32,7 +35,7 @@ const Laptops = ({ state, setCurrentState, originalState, setBackupProducts, set
 
     return (
         <div className='wrapper'>
-            <Filter minMaxPrice={calcMinMaxPrice(originalState)} originalState={originalState} setCurrentState={setCurrentState} />
+            <Filter minMaxPrice={calcMinMaxPrice(originalState)} setSelected={setSelected} />
 
             <div className='app__container'>
                 <section className='app__container-top'>
