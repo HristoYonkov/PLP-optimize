@@ -33,10 +33,13 @@ const Laptops = ({ state, setCurrentState, originalState, setBackupProducts, set
     useEffect(() => {
         // filter products 'state'!!!
         console.log(filteredPrice, selected, products);
-        // setProducts(state => state.filter((x) => selected.includes(x.color)));
-        // setProducts(state => state.filter((x) => x.price >= filteredPrice.price));
+        setProducts(state);
+        if (selected.length > 0) {
+            setProducts(state => state.filter((x) => selected.includes(x.color)));
+        }
+        setProducts(state => state.filter((x) => x.price >= filteredPrice.price));
         // setProducts((curr) => [...curr, ...state.slice(curr.length, curr.length + interval)]);
-    }, [interval, selected, filteredPrice]);
+    }, [interval, selected, filteredPrice, state]);
 
     const loadMoreHandler = () => {
         setInterval(state => state + 4);
