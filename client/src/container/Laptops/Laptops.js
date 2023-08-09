@@ -18,13 +18,13 @@ const Laptops = ({ state, setCurrentState, originalState, setBackupProducts, set
     }, []);
 
     useEffect(() => {
-        // filter products!!!
+        // filter products 'state'!!!
         setProducts(state);
         setInterval(4);
     }, [state]);
 
     useEffect(() => {
-        // filter products!!!
+        // filter products 'state'!!!
         setProducts((curr) => [...curr, ...state.slice(curr.length, curr.length + interval)]);
     }, [interval, selected, state]);
 
