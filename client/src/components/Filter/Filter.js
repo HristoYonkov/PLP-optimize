@@ -7,9 +7,6 @@ const Filter = ({ minMaxPrice, setSelected }) => {
     black: false,
     blue: false
   });
-  const [filteredPrice, setFilteredPrice] = useState({
-    price: minMaxPrice.min
-  });
 
   const maxPrice = minMaxPrice.max;
   const minPrice = minMaxPrice.min;
