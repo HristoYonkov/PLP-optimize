@@ -26,7 +26,7 @@ const Monitors = ({ state, setCurrentState, setBuyedProducts }) => {
 
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        setInterval(4);
+        // setInterval(4);
     }, []);
 
     useEffect(() => {
