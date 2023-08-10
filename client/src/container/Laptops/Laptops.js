@@ -11,7 +11,7 @@ import { calcMinMaxPrice } from '../../hooks/calcMinMaxPrice'
 const Laptops = ({ state, setCurrentState, originalState, setBackupProducts, setBuyedProducts }) => {
     const [products, setProducts] = useState(state);
     const [interval, setInterval] = useState(4);
-    // Filtering... will try to work with 1 state!
+    // Filtering states... will try to work with 1 state!
     const [selected, setSelected] = useState([]);
     const [filteredPrice, setFilteredPrice] = useState({
         price: calcMinMaxPrice(state).min
@@ -21,18 +21,16 @@ const Laptops = ({ state, setCurrentState, originalState, setBackupProducts, set
         black: false,
         blue: false
     });
+    // sorting
+    const [sortValue, setSortValue] = useState('');
+
 
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
+        setInterval(4);
     }, []);
 
     useEffect(() => {
-        // filter products 'state'!!!
-        // setProducts(state.filter((x) => selected.includes(x.color)));
-        // setProducts((state) => state.filter((x) => x.price >= filteredPrice.price));
-
-        // setProducts(state);
-        // setInterval(4);
     }, [state]);
 
     useEffect(() => {
@@ -43,8 +41,18 @@ const Laptops = ({ state, setCurrentState, originalState, setBackupProducts, set
             setProducts(state => state.filter((x) => selected.includes(x.color)));
         }
         setProducts(state => state.filter((x) => x.price >= filteredPrice.price));
-        // setProducts((curr) => [...curr, ...state.slice(curr.length, curr.length + interval)]);
-    }, [interval, selected, filteredPrice, state]);
+        // Filter state
+        if (sortValue === 'priceAsc') {
+            setProducts(state => [...state.sort((a, b) => a.price - b.price)]);
+        } else if (sortValue === 'priceDesc') {
+            setProducts(state => [...state.sort((a, b) => b.price - a.price)]);
+        } else if (sortValue === 'alphaA-Z') {
+            setProducts(state => [...state.sort((a, b) => a.name.localeCompare(b.name))]);
+        } else if (sortValue === 'alphaZ-A') {
+            setProducts(state => [...state.sort((a, b) => b.name.localeCompare(a.name))]);
+        }
+
+    }, [interval, selected, filteredPrice, state, sortValue]);
 
     const loadMoreHandler = () => {
         setInterval(state => state + 4);
@@ -89,7 +97,7 @@ const Laptops = ({ state, setCurrentState, originalState, setBackupProducts, set
                         </div>
 
                         <div>
-                            <Dropdown setProducts={setProducts} reset={state} />
+                            <Dropdown sortValue={sortValue} setSortValue={setSortValue} />
                         </div>
                     </div>
                 </section>
