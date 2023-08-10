@@ -8,10 +8,10 @@ import FilterMobile from '../../components/FilterMobile/FilterMobile'
 import { calcMinMaxPrice } from '../../hooks/calcMinMaxPrice'
 
 
-const Laptops = ({ state, setCurrentState, originalState, setBackupProducts, setBuyedProducts }) => {
+const Laptops = ({ state, setCurrentState, setBuyedProducts }) => {
     const [products, setProducts] = useState(state);
     const [interval, setInterval] = useState(4);
-    // Filtering states... will try to work with 1 state!
+    // Filtering states..
     const [selected, setSelected] = useState([]);
     const [filteredPrice, setFilteredPrice] = useState({
         price: calcMinMaxPrice(state).min
@@ -21,7 +21,7 @@ const Laptops = ({ state, setCurrentState, originalState, setBackupProducts, set
         black: false,
         blue: false
     });
-    // sorting
+    // Sorting state..
     const [sortValue, setSortValue] = useState('');
 
 
@@ -34,14 +34,13 @@ const Laptops = ({ state, setCurrentState, originalState, setBackupProducts, set
     }, [state]);
 
     useEffect(() => {
-        // filter products 'state'!!!
-        console.log(filteredPrice, selected, products);
+        // filter products!!!
         setProducts(state);
         if (selected.length > 0) {
             setProducts(state => state.filter((x) => selected.includes(x.color)));
         }
         setProducts(state => state.filter((x) => x.price >= filteredPrice.price));
-        // Filter state
+        // Sort products!!!
         if (sortValue === 'priceAsc') {
             setProducts(state => [...state.sort((a, b) => a.price - b.price)]);
         } else if (sortValue === 'priceDesc') {
