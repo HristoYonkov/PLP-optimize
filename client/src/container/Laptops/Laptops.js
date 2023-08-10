@@ -16,6 +16,11 @@ const Laptops = ({ state, setCurrentState, originalState, setBackupProducts, set
     const [filteredPrice, setFilteredPrice] = useState({
         price: calcMinMaxPrice(originalState).min
     });
+    const [colors, setColors] = useState({
+        white: false,
+        black: false,
+        blue: false
+    });
 
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -53,6 +58,8 @@ const Laptops = ({ state, setCurrentState, originalState, setBackupProducts, set
                 setSelected={setSelected}
                 setFilteredPrice={setFilteredPrice}
                 filteredPrice={filteredPrice}
+                colors={colors}
+                setColors={setColors}
             />
 
             <div className='app__container'>
@@ -71,7 +78,14 @@ const Laptops = ({ state, setCurrentState, originalState, setBackupProducts, set
 
                     <div className='app__container-sort'>
                         <div>
-                            <FilterMobile minMaxPrice={calcMinMaxPrice(originalState)} originalState={originalState} setCurrentState={setCurrentState} />
+                            <FilterMobile
+                                minMaxPrice={calcMinMaxPrice(state)}
+                                setSelected={setSelected}
+                                setFilteredPrice={setFilteredPrice}
+                                filteredPrice={filteredPrice}
+                                colors={colors}
+                                setColors={setColors}
+                            />
                         </div>
 
                         <div>
