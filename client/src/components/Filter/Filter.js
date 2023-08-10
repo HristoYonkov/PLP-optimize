@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Filter.scss';
 
-const Filter = ({ minMaxPrice, setSelected, setFilteredPrice, filteredPrice }) => {
-  const [colors, setColors] = useState({
-    white: false,
-    black: false,
-    blue: false
-  });
-
+const Filter = ({ minMaxPrice, setSelected, setFilteredPrice, filteredPrice, colors, setColors }) => {
   const maxPrice = minMaxPrice.max;
   const minPrice = minMaxPrice.min;
 
