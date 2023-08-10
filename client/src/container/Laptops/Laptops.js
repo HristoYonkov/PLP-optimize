@@ -14,7 +14,7 @@ const Laptops = ({ state, setCurrentState, originalState, setBackupProducts, set
     // Filtering... will try to work with 1 state!
     const [selected, setSelected] = useState([]);
     const [filteredPrice, setFilteredPrice] = useState({
-        price: calcMinMaxPrice(originalState).min
+        price: calcMinMaxPrice(state).min
     });
     const [colors, setColors] = useState({
         white: false,
@@ -96,7 +96,7 @@ const Laptops = ({ state, setCurrentState, originalState, setBackupProducts, set
 
                 <section className='app__container-products'>
                     {products.slice(0, interval).map((item) =>
-                        <Card key={item.id} item={item} setBackupProducts={setBackupProducts} setBuyedProducts={setBuyedProducts} />
+                        <Card key={item.id} item={item} setBackupProducts={setCurrentState} setBuyedProducts={setBuyedProducts} />
                     )}
                 </section>
                 {interval < products.length &&
